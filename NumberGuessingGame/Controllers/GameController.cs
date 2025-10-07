@@ -84,17 +84,17 @@ namespace NumberGuessingGame.Controllers
             string message;
             int score = 0;
 
-            // Score = kalan tahmin sayısına göre
+            
             if (actualGuess == randomNumber)
             {
                 message = "🎉 Correct! You guessed the number!";
-                score = (remaining + 1) * 10; // remaining azaltıldıktan sonra +1
+                score = (remaining + 1) * 10; 
                 remaining = 0;
             }
             else if (actualGuess > randomNumber)
             {
                 message = "Too high!";
-                score = 0; // yanlış tahminlerde puan yok
+                score = 0; 
             }
             else
             {
@@ -102,7 +102,7 @@ namespace NumberGuessingGame.Controllers
                 score = 0;
             }
 
-            // Score’u session’da sakla (doğru tahmin için)
+            
             HttpContext.Session.SetInt32("Score", score);
             HttpContext.Session.SetInt32("RemainingGuesses", remaining);
 
