@@ -1,0 +1,47 @@
+﻿@model NumberGuessingGame.Models.GameModel
+
+<h2>Number Guessing Game</h2>
+
+@if (!Model.GameStarted)
+{
+    <form asp-action="StartGame" method="post" class="mt-3">
+        <div class="mb-3">
+            <label>Minimum Number:</label>
+            <input type="number" name="minRange" class="form-control" value="1" required />
+        </div>
+        <div class="mb-3">
+            <label>Maximum Number:</label>
+            <input type="number" name="maxRange" class="form-control" value="100" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Start Game</button>
+    </form>
+}
+else
+{
+    <p><strong>Remaining Guesses:</strong> @Model.RemainingGuesses</p>
+    <p><strong>Score:</strong> @Model.Score</p>
+    <p><strong>Time Played:</strong> @Model.ElapsedTime.ToString(@"mm\:ss")</p>
+
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="alert alert-info">@Model.Message</div>
+    }
+
+    @if (Model.RemainingGuesses > 0)
+    {
+        <form asp-action="SubmitGuess" method="post">
+            <div class="input-group mb-3">
+                <input type="number" name="guess"
+                       min="@Model.MinRange"
+                       max="@Model.MaxRange"
+                       class="form-control"
+                       value="" />
+                <button type="submit" class="btn btn-success">Submit Guess</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <a class="btn btn-warning mt-3" asp-action="Index">Play Again</a>
+    }
+}
